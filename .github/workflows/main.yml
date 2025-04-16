@@ -26,11 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Tests (if any)
-      run: |
-        # Here you can run any tests. If none, this step can be skipped.
-        pytest  # Assuming you have pytest set up
-
   deploy:
     needs: build
     runs-on: ubuntu-latest

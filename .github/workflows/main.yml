@@ -44,6 +44,11 @@ jobs:
         aws-secret-access-key: "NHVTQBN2pGgem1Bari5EO+dTb85UaoJccC8S8y4X"  # Hardcoded AWS Secret Access Key
         aws-region: "ap-south-1"  # Hardcoded AWS Region (Asia Pacific - Mumbai)
 
+    - name: Install Elastic Beanstalk CLI (eb)
+      run: |
+        # Install the Elastic Beanstalk CLI
+        pip install awsebcli
+
     - name: Deploy to Elastic Beanstalk
       run: |
         # Package the app for Elastic Beanstalk
@@ -57,4 +62,5 @@ jobs:
       id: deploy
       run: |
         # Fetch the Elastic Beanstalk URL dynamically
-        EB_URL=$(aws elasticbeanstalk describe-environments --environment-names flask-app-env --query 'Environments[0].C_
+        EB_URL=$(aws elasticbeanstalk describe-environments --environment-names flask-app-env --query 'Environments[0].CNAME' --output text)
+        echo "URL: https://$EB_URL"

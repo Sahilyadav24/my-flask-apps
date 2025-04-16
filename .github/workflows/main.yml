@@ -40,9 +40,9 @@ jobs:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-access-key-id: "AKIAYSE4N6J2TGAIM3QR"  # Hardcoded AWS Access Key ID
+        aws-secret-access-key: "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"  # Hardcoded AWS Secret Access Key
+        aws-region: "ap-south-1"  # Hardcoded AWS Region (Asia Pacific - Mumbai)
 
     - name: Deploy to Elastic Beanstalk
       run: |
@@ -50,12 +50,11 @@ jobs:
         zip -r flask-app.zip .
         
         # Use AWS EB CLI to deploy to Elastic Beanstalk
-        eb init -p python-3.7 flask-app --region ${{ secrets.AWS_REGION }}
+        eb init -p python-3.7 flask-app --region "ap-south-1"  # Specify the region directly
         eb deploy
 
     - name: Output URL (for tracking)
       id: deploy
       run: |
         # Fetch the Elastic Beanstalk URL dynamically
-        EB_URL=$(aws elasticbeanstalk describe-environments --environment-names flask-app-env --query 'Environments[0].CNAME' --output text)
-        echo "URL: https://$EB_URL"
+        EB_URL=$(aws elasticbeanstalk describe-environments --environment-names flask-app-env --query 'Environments[0].C_

@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: ${{ steps.deploy.outputs.url }}
+      url: ${{ steps.deploy.outputs.url }}  # The URL will be set dynamically
 
     steps:
     - name: Check out repository
@@ -56,8 +56,17 @@ jobs:
         
         # Use AWS EB CLI to deploy to Elastic Beanstalk
         eb init -p python-3.7 flask-app --region ${{ secrets.AWS_REGION }}
+        
+        # Check if the environment exists; if not, create it
+        eb create flask-app-env --region ${{ secrets.AWS_REGION }} --tier web
+        
+        # Deploy the app to Elastic Beanstalk
         eb deploy
+        
+        # Capture the Elastic Beanstalk environment URL
+        EB_URL=$(eb open --no-verify-ssl | grep -o 'http[^ ]*')
+        echo "Elastic Beanstalk Environment URL: $EB_URL"
 
     - name: Output URL (for tracking)
       id: deploy
-      run: echo "URL: https://${{ secrets.AWS_ELASTIC_BEANSTALK_URL }}" 
+      run: echo "URL: $EB_URL"

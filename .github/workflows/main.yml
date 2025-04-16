@@ -40,8 +40,8 @@ jobs:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: "AKIAYSE4N6J2TGAIM3QR"  # Hardcoded AWS Access Key ID
-        aws-secret-access-key: "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"  # Hardcoded AWS Secret Access Key
+        aws-access-key-id: "AKIAYSE4N6J24FOXDUTO"  # Hardcoded AWS Access Key ID
+        aws-secret-access-key: "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"  # Hardcoded AWS Secret Access Key
         aws-region: "ap-south-1"  # Hardcoded AWS Region (Asia Pacific - Mumbai)
 
     - name: Install Elastic Beanstalk CLI (eb)

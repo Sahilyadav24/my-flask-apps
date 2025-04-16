@@ -55,7 +55,7 @@ jobs:
         zip -r flask-app.zip .
         
         # Use AWS EB CLI to deploy to Elastic Beanstalk
-        eb init -p python-3.7 flask-app --region "ap-south-1"  # Specify the region directly
+        eb init -p python-3.9 flask-app --region "ap-south-1"  # Use Python 3.9 instead of 3.7
         eb deploy
 
     - name: Output URL (for tracking)
